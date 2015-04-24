@@ -22,9 +22,12 @@ public final class ShadowShader {
 			+ "#endif\n" //
 				+ "varying MED vec2 v_texCoords;\n" //
 				+ "uniform sampler2D u_texture;\n" //
-				+ "uniform vec4 ambient;\n"				
+				+ "uniform vec4 ambient;\n"			
+				+ "uniform MED sampler2D u_mask;\n" //	
 				+ "void main()\n"//
 				+ "{\n" //
+				+ "  float mask = texture2D(u_mask,v_texCoords).a;\n" //
+				+ "  if(mask < 0.05){ discard; }\n"
 				+ "vec4 c = texture2D(u_texture, v_texCoords);\n"//
 				+ "gl_FragColor.rgb = c.rgb * c.a + ambient.rgb;\n"//
 				+ "gl_FragColor.a = ambient.a - c.a;\n"//				

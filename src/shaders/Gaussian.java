@@ -45,6 +45,7 @@ public class Gaussian {
 				+ "#define MED \n"
 				+ "#endif\n" //
 				+ "uniform sampler2D u_texture;\n" //
+				+ "uniform MED sampler2D u_mask;\n" //
 				+ "varying MED vec2 v_texCoords0;\n" //
 				+ "varying MED vec2 v_texCoords1;\n" //
 				+ "varying MED vec2 v_texCoords2;\n" //
@@ -55,6 +56,8 @@ public class Gaussian {
 				+ "const float far    = 0.0702702703;\n" //
 				+ "void main()\n" //
 				+ "{	 \n" //
+//				+ "  float mask = texture2D(u_mask,a_texCoord).a;\n" //
+//				+ "  if(mask < 0.5){ discard; }\n"
 				+ "gl_FragColor"+rgb+" = far    * texture2D(u_texture, v_texCoords0)"+rgb+"\n" //
 				+ "	      		+ close  * texture2D(u_texture, v_texCoords1)"+rgb+"\n" //
 				+ "				+ center * texture2D(u_texture, v_texCoords2)"+rgb+"\n" //

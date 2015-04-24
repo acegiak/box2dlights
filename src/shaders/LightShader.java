@@ -29,8 +29,13 @@ public final class LightShader {
 			+ "#define MED \n"
 			+ "#endif\n" //
 				+ "varying vec4 v_color;\n" //
+				+ "uniform MED sampler2D u_mask;\n" //
 				+ "void main()\n"//
 				+ "{\n" //
+//				+ "  v_color.a = v_color.a * texture2D(u_mask,vTexCoord).a;\n" //
+//				+ "  if(texture2D(u_mask,vTexCoord).a < 0.5){ discard; }\n"
+//				+ "  vec4 masked = mix(v_color,new vec4(1,0,0,1),mask);\n" //
+//				+ "  gl_FragColor = "+gamma+"(masked);\n" //
 				+ "  gl_FragColor = "+gamma+"(v_color);\n" //
 				+ "}";
 

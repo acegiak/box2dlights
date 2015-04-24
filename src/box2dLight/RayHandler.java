@@ -34,6 +34,7 @@ public class RayHandler implements Disposable {
 	 * TODO: remove public modifier and add getter 
 	 * */
 	public static boolean isDiffuse = false;
+	
 
 	/**
 	 * Blend function for lights rendering with both shadows and diffusion
@@ -79,6 +80,9 @@ public class RayHandler implements Disposable {
 	boolean culling = true;
 	boolean shadows = true;
 	boolean blur = true;
+	
+	/** Optional mask texture **/
+	public Texture mask = null;
 	
 	int blurNum = 1;
 	
@@ -305,7 +309,15 @@ public class RayHandler implements Disposable {
 			Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		}
-
+		
+		//if(mask != null){
+			lightShader.setUniformi("u_mask", 2);
+	
+			Gdx.gl.glActiveTexture(GL20.GL_TEXTURE2);
+			mask.bind();
+			Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+		//}
+		
 		lightShader.begin();
 		{
 			lightShader.setUniformMatrix("u_projTrans", combined);
